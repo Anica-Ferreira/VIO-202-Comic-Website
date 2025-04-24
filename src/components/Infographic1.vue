@@ -17,7 +17,7 @@
         <img v-show="mushroomState === 'reverse'" :src="mushroomAliveReverseSrc" class="big_mushroom">
 
         <img v-show="scrollState === 'closed' "src="@/assets/images/infographic/part1/scroll.png" id="closed_scroll"  @click="openScroll">
-        <img v-show="scrollState === 'animating'" :src="scrollOpeningSrc + `?${Date.now()}`" id="scroll_opening">
+        <img v-show="scrollState === 'animating'" :src="scrollOpeningSrc" id="scroll_opening">
   
       </div>
     </div>
