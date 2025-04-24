@@ -6,12 +6,8 @@
             <img src="@/assets/images/infographic/part2/log1.png" id="log1">
             <img src="@/assets/videos/malbrush_blinking2.gif" id="malbrush_blinking2">
             <img src="@/assets/images/infographic/part2/cliffs.png" id="cliffs">
-            <img src="@/assets/images/infographic/part2/Infographic_Section_2.png" id="temp">
-
-            
             
             <img src="@/assets/images/infographic/part2/darkness.png" id="darkness">
-
 
             <img src="@/assets/images/infographic/part2/brush1.png" id="brush1" draggable="true" @dragstart="handleDragStart">
             <img src="@/assets/images/infographic/part2/canvas.png" class="canvas">
@@ -26,7 +22,7 @@
             <img src="@/assets/images/infographic/part2/text9.png" id="text9" class="text scroll_reveal">
 
             <img src="@/assets/images/infographic/part2/brush_light.png" id="brush_light">
-            <img src="@/assets/images/infographic/part2/brush2.png" id="brush2">
+            <img src="@/assets/images/infographic/part2/brush1.png" id="brush2">
             <img src="@/assets/images/infographic/part2/light_swirls.png" id="swirls">
             
         </div>
@@ -89,18 +85,14 @@ export default {
     
 }
 
-#temp{
-    position: absolute;
-    top: 505vw;
-    left: 0vw;
-    width: 100vw;  
-}
-
 #swirls{
     position: absolute;
-    top: 147vw;
+    top: 120vw;
     left: 0vw;
     width: 100vw;
+    animation: swirlPulse 4s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
 }
 
 #brush1 {
@@ -111,20 +103,20 @@ export default {
     cursor: grab;
     z-index: 999;
     animation: glowfloat 3s ease-in-out infinite;
-    transition: transform 0.8s ease-in-out !important;
+    transition: transform 0.8s ease-in-out !important;  
 }
 
 #brush2 {
     position: absolute;
-    top: 317vw;
-    left: 44.5vw;
-    width: 8vw;
+    top: 307vw;
+    left: 47.5vw;
+    width: 5.5vw;
     animation: float 3s ease-in-out infinite;
 }
 
 #brush_light{
     position: absolute;
-    top: 260vw;
+    top: 240vw;
     left: 0vw;
     width: 100vw;
     opacity: 0.7;
@@ -163,49 +155,49 @@ export default {
 
 #text4{
     position: absolute;
-    top: 144vw;
-    left: 31vw;
-    width: 38vw;
+    top: 144.5vw;
+    left: 34.5vw;
+    width: 35vw;
     height: auto;
 }
 
 #text5{
     position: absolute;
-    top: 198vw;
-    left: 31.2vw;
-    width: 39vw;
+    top: 188.5vw;
+    left: 37vw;
+    width: 34vw;
     height: auto;
 }
 
 #text6{
     position: absolute;
-    top: 255vw;
-    left: 38.2vw;
-    width: 24vw;
+    top: 249vw;
+    left: 40.5vw;
+    width: 21vw;
     height: auto;
 }
 
 #text7{
     position: absolute;
-    top: 298vw;
-    left: 34vw;
-    width: 32vw;
+    top: 286vw;
+    left: 37vw;
+    width: 29vw;
     height: auto;
 }
 
 #text8{
     position: absolute;
-    top: 400vw;
-    left: 28vw;
-    width: 44vw;
+    top: 352vw;
+    left: 35vw;
+    width: 30vw;
     height: auto;
 }
 
 #text9{
     position: absolute;
-    top: 432vw;
-    left: 24vw;
-    width: 52vw;
+    top: 366vw;
+    left: 32.5vw;
+    width: 35vw;
     height: auto;
 }
 
@@ -239,6 +231,21 @@ export default {
 
     100% {
         transform: translateY(0);
+    }
+}
+
+@keyframes swirlPulse {
+    0% {
+        filter: drop-shadow(0 0 0.2vw rgba(146, 65, 187, 0.3));
+        opacity: 0.6;
+    }
+    50% {
+        filter: drop-shadow(0 0 0.8vw rgba(165, 77, 209, 0.9));
+        opacity: 1;
+    }
+    100% {
+        filter: drop-shadow(0 0 0.2vw rgba(146, 65, 187, 0.3));
+        opacity: 0.6;
     }
 }
     
