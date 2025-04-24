@@ -11,13 +11,13 @@
         <img src="@/assets/images/infographic/part1/text3.png" id="text3" class="text scroll_reveal">
         <img src="@/assets/images/infographic/part1/malbrush_sitting.png" class="infographic_images" id="malbrush_sitting">
 
-        <img v-if="mushroomState === 'static'" src="@/assets/images/infographic/part1/big_mushroom.png" class="big_mushroom glowing" @click="startAnimation">
-        <img v-if="mushroomState === 'animating'" :src="mushroomAliveSrc + `?${Date.now()}`" :key="mushroomState" class="big_mushroom">
-        <img v-if="mushroomState === 'blinking'" :src="mushroomBlinkingSrc + `?${Date.now()}`" :key="mushroomState" class="big_mushroom" @click="goToReverse">
-        <img v-if="mushroomState === 'reverse'" :src="mushroomAliveReverseSrc + `?${Date.now()}`" :key="mushroomState" class="big_mushroom">
+        <img v-show="mushroomState === 'static'" src="@/assets/images/infographic/part1/big_mushroom.png" class="big_mushroom glowing mushroom_hover" @click="startAnimation">
+        <img v-show="mushroomState === 'animating'" :src="mushroomAliveSrc" class="big_mushroom">
+        <img v-show="mushroomState === 'blinking'" :src="mushroomBlinkingSrc" class="big_mushroom mushroom_hover" @click="goToReverse">
+        <img v-show="mushroomState === 'reverse'" :src="mushroomAliveReverseSrc" class="big_mushroom">
 
-        <img v-if="scrollState === 'closed' "src="@/assets/images/infographic/part1/scroll.png" id="closed_scroll"  @click="openScroll">
-        <img v-if="scrollState === 'animating'" :src="scrollOpeningSrc + `?${Date.now()}`" id="scroll_opening">
+        <img v-show="scrollState === 'closed' "src="@/assets/images/infographic/part1/scroll.png" id="closed_scroll"  @click="openScroll">
+        <img v-show="scrollState === 'animating'" :src="scrollOpeningSrc + `?${Date.now()}`" id="scroll_opening">
   
       </div>
     </div>
@@ -149,19 +149,19 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
 
 .big_mushroom {
     position: absolute;
-    top: 108vw;
-    left: 56vw;
-    width: 25vw;
+    top: 110vw;
+    left: 63vw;
+    width: 13vw;
     height: auto;
     z-index: 10;
     transition: filter 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
     animation: glowPulse 2.5s ease-in-out infinite;
 }
 
-.big_mushroom:hover{
+.mushroom_hover:hover{
     filter: brightness(1.1) drop-shadow(0 0 0.5vw rgba(255, 255, 255, 0.82));
     animation: none;
+    cursor: pointer;
 }
 
 .big_mushroom:hover {

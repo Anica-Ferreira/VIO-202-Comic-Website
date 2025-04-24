@@ -109,9 +109,9 @@ export default {
     left: 60vw;
     width: 4vw;
     cursor: grab;
-    animation: glowfloat 3s ease-in-out infinite;
     z-index: 999;
-    transition: transform 0.3s ease-in-out !important;
+    animation: glowfloat 3s ease-in-out infinite;
+    transition: transform 0.8s ease-in-out !important;
 }
 
 #brush2 {
@@ -128,13 +128,14 @@ export default {
     left: 0vw;
     width: 100vw;
     opacity: 0.7;
-    mix-blend-mode:  color-dodge;
+    mix-blend-mode: color-dodge;
 }
 
 
 #brush1:hover {
-    animation-play-state: paused;
-    transform: scale(1.01) !important;
+    animation: none;
+    transform: scale(1.02) !important;
+    filter: brightness(1.1) drop-shadow(0 0 0.5vw rgba(255, 255, 255, 0.82));
 }
 
 #malbrush_blinking2{
