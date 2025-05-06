@@ -9,7 +9,7 @@
         <img src="@/assets/images/infographic/part1/text1.png" id="text1" class="text scroll_reveal">
         <img src="@/assets/images/infographic/part1/text2.png" id="text2" class="text scroll_reveal">
         <img src="@/assets/images/infographic/part1/text3.png" id="text3" class="text scroll_reveal">
-        <img src="@/assets/images/infographic/part1/malbrush_sitting.png" class="infographic_images" id="malbrush_sitting">
+        <img src="@/assets/images/infographic/part1/malbrush_sitting.gif" class="infographic_images" id="malbrush_sitting">
 
         <img v-show="mushroomState === 'static'" src="@/assets/images/infographic/part1/big_mushroom.png" class="big_mushroom glowing mushroom_hover" @click="startAnimation">
         <img v-show="mushroomState === 'animating'" :src="mushroomAliveSrc" class="big_mushroom">
@@ -112,9 +112,9 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
 
 #malbrush_sitting{
     position: absolute;
-    top: 192vw;
-    left: 11vw;
-    width: 38vw;
+    top: 192.5vw;
+    left: 14vw;
+    width: 35vw;
     z-index: 100;
     height: auto;
 }

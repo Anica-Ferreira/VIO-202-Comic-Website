@@ -6,6 +6,8 @@
             <Cover/>
             <Infographic1/>
             <Infographic2/>
+            <Infographic3/>
+            <Infographic4/>
 
         </div>
     </main>

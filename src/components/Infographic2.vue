@@ -6,7 +6,12 @@
             <img src="@/assets/images/infographic/part2/log1.png" id="log1">
             <img src="@/assets/videos/malbrush_blinking2.gif" id="malbrush_blinking2">
             <img src="@/assets/images/infographic/part2/cliffs.png" id="cliffs">
+            <img src="@/assets/images/infographic/part2/log_extention.png" id="log_ex">
             
+            <img src="@/assets/videos/army_making.gif" id="army_making">
+            <img src="@/assets/videos/army_blinking.gif" id="army_blinking">
+
+
             <img src="@/assets/images/infographic/part2/darkness.png" id="darkness">
 
             <img src="@/assets/images/infographic/part2/brush1.png" id="brush1" draggable="true" @dragstart="handleDragStart">
@@ -36,6 +41,7 @@ export default {
     data() {
         return {
             showAnimation: false,
+            _armyTimeout: null,
         };
     },
   
@@ -50,6 +56,31 @@ export default {
             this.showAnimation = true;
         },
     },
+
+    mounted() {
+    const armyMaking = document.getElementById("army_making");
+    const armyBlinking = document.getElementById("army_blinking");
+
+    let observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            this._armyTimeout = setTimeout(() => {
+                armyBlinking.style.opacity = 1;
+                armyMaking.style.opacity = 0;
+            }, 4000);
+        }else{
+            clearTimeout(this._armyTimeout);
+            armyBlinking.style.opacity = 0;
+            armyMaking.style.opacity = 1;
+        }
+        });
+        }, {
+         threshold: 0.35
+         
+        });
+
+  observer.observe(armyMaking);
+}
 };
 
 </script>
@@ -82,7 +113,33 @@ export default {
     left: 0vw;
     width: 100vw;
     mix-blend-mode:  multiply;
+    opacity: 0.9;
     
+}
+
+#army_making{
+    position: absolute;
+    top: 387vw;
+    left: 11vw;
+    width: 77vw; 
+    z-index: 2000;
+}
+
+#army_blinking{
+    position: absolute;
+    top: 387vw;
+    left: 11vw;
+    width: 77vw; 
+    z-index: 3000;
+    opacity: 0;
+}
+
+#log_ex{
+    position: absolute;
+    top: 380vw;
+    left: 0vw;
+    width: 100vw; 
+    z-index: 10;
 }
 
 #swirls{
