@@ -13,10 +13,19 @@
 
             <img src="@/assets/images/infographic/part4/green_glow.png" id="green_glow">
             <img src="@/assets/images/infographic/part4/tree.png" id="tree">
-            <img src="@/assets/images/infographic/part4/creatures.png" id="creatures">
+
+            <img v-show="bush1Visible" src="@/assets/videos/bush_shaking_mushroom.gif" id="bush1" @click="bushReveal1">
+            <img v-show="bush2Visible" src="@/assets/videos/bush_shaking_onion.gif" id="bush2" @click="bushReveal2">
+
+            <img v-show="mushroomVisible" src="@/assets/videos/mushroom_jump.gif" id="bush_mushroom" @click="bushReveal3">
+            <img v-show="onionVisible" src="@/assets/videos/onion_jump.gif" class="onion">
+            <img v-show="onionBlinkVisible" src="@/assets/videos/onion_blinking.gif" class="onion" @click="bushReveal4">
+
+            <img src="@/assets/images/infographic/part4/threshhold.png" id="threshhold"/>
+            <img src="@/assets/images/infographic/part4/sparkles.png" id="sparkles">
 
             <img src="@/assets/images/infographic/part4/green_circle.png" id="circle">
-            <img src="@/assets/images/infographic/part4/darkness.png" id="darkness">
+            <img  src="@/assets/images/infographic/part4/darkness.png" id="darkness">
 
         </div>
     </div>
@@ -27,9 +36,30 @@
     export default {
             data() {
                 return {
-          
+                    mushroomVisible: false,
+                    onionVisible: false,
+                    onionBlinkVisible: false,
+                    bush1Visible: true,
+                    bush2Visible: true, 
                 };
           },
+
+          methods: {
+                bushReveal1() {
+                    this.bush1Visible = false;
+                    this.mushroomVisible = true;
+                },
+
+                bushReveal2() {
+                    this.bush2Visible = false;
+                    this.onionVisible = true;
+
+                    setTimeout(() => {
+                        this.onionBlinkVisible = true;
+                        this.onionVisible = false;
+                    }, 1000);
+                },
+          }
       }
 
 </script>
@@ -64,12 +94,68 @@
         width: 100vw;
     }
 
-    #creatures{
+    #threshhold{
         position: absolute;
-        top: 102.5vw;
+        top: 40vw;
         left: 0vw;
         width: 100vw;
-        z-index: 1;
+        z-index: 10;
+        opacity: 0;    
+    }
+
+    #sparkles{
+        position: absolute;
+        top: 48vw;
+        left: 73vw;
+        width: 7vw;
+        z-index: 10;  
+    }
+
+    #bush1{
+        position: absolute;
+        top: 112vw;
+        left: 22vw;
+        width: 20vw;
+        z-index: 15;
+        transition: all 0.2s ease;
+    }
+
+    #bush2{
+        position: absolute;
+        top: 109vw;
+        left: 58vw;
+        width: 17vw;
+        z-index: 15;
+        transition: all 0.2s ease;
+        animation: glow;
+    }
+
+    #bush1:hover{
+        transform: scale(1.05);
+        filter: brightness(1.1) drop-shadow(0 0 0.5vw rgba(255, 255, 255, 0.2));
+        cursor: pointer;    
+    }
+
+    #bush2:hover{
+        transform: scale(1.05);
+        filter: brightness(1.1) drop-shadow(0 0 0.5vw rgba(255, 255, 255, 0.2));
+        cursor: pointer;   
+    }
+
+    #bush_mushroom{
+        position: absolute;
+        top: 99.2vw;
+        left: 22vw;
+        width: 20vw;
+        z-index: 10;
+    }
+
+    .onion{
+        position: absolute;
+        top: 100vw;
+        left: 58vw;
+        width: 17vw;
+        z-index: 10;   
     }
 
     #text13{
@@ -89,8 +175,8 @@
     #text15{
         position: absolute;
         top: 85vw;
-        left: 34vw;
-        width: 34vw;
+        left: 35vw;
+        width: 30vw;
         z-index: 1;
     }
 
@@ -136,6 +222,15 @@
         to {
             transform: rotate(360deg);
         } 
+    }
+
+    @keyframes glow {
+        0% {
+            filter: drop-shadow(0 0 5px rgba(101, 197, 255, 0.5));
+        }
+        100% {
+            filter: drop-shadow(0 0 20px rgba(123, 199, 247, 0.8));
+        }
     }
    
 </style>
