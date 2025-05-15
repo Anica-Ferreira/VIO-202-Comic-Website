@@ -4,6 +4,7 @@
         <div class="infographic_content">
             <img src="@/assets/images/infographic/part4/background.png" class="cover-anchor">
             <img src="@/assets/images/infographic/part4/blue_transition.png" id="blue_transition">
+            <!---->
 
             <img src="@/assets/images/infographic/part4/text13.png" id="text13" class="text scroll_reveal">
             <img src="@/assets/images/infographic/part4/text14.png" id="text14" class="text scroll_reveal">
