@@ -11,13 +11,23 @@
         <img src="@/assets/images/infographic/part1/text3.png" id="text3" class="text scroll_reveal">
         <img src="@/assets/images/infographic/part1/malbrush_sitting.gif" class="infographic_images" id="malbrush_sitting">
 
-        <img v-show="mushroomState === 'static'" src="@/assets/images/infographic/part1/big_mushroom.png" class="big_mushroom glowing mushroom_hover" @click="startAnimation">
+        <img v-show="mushroomState === 'static'" src="@/assets/images/infographic/part1/big_mushroom.png" class="big_mushroom glowing mushroom_hover" @click="startAnimation" ref="mushroom">
         <img v-show="mushroomState === 'animating'" :src="mushroomAliveSrc" class="big_mushroom">
-        <img v-show="mushroomState === 'blinking'" :src="mushroomBlinkingSrc" class="big_mushroom mushroom_hover" @click="goToReverse">
+        <img v-show="mushroomState === 'blinking'" :src="mushroomBlinkingSrc" class="big_mushroom mushroom_hover">
         <img v-show="mushroomState === 'reverse'" :src="mushroomAliveReverseSrc" class="big_mushroom">
 
         <img v-show="scrollState === 'closed' "src="@/assets/images/infographic/part1/scroll.png" id="closed_scroll"  @click="openScroll">
         <img v-show="scrollState === 'animating'" :src="scrollOpeningSrc" id="scroll_opening">
+
+        <img src="@/assets/images/infographic/part1/insult1.png" id="insult1" class="insults">
+        <img src="@/assets/images/infographic/part1/insult2.png" id="insult2" class="insults">
+        <img src="@/assets/images/infographic/part1/insult3.png" id="insult3" class="insults">
+        <img src="@/assets/images/infographic/part1/insult4.png" id="insult4" class="insults">
+        <img src="@/assets/images/infographic/part1/insult5.png" id="insult5" class="insults">
+        <img src="@/assets/images/infographic/part1/insult6.png" id="insult6" class="insults">
+        <img src="@/assets/images/infographic/part1/insult7.png" id="insult7" class="insults">
+        <img src="@/assets/images/infographic/part1/insult8.png" id="insult8" class="insults">
+        <img src="@/assets/images/infographic/part1/insult9.png" id="insult9" class="insults">
   
       </div>
     </div>
@@ -39,16 +49,38 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
         mushroomState: 'static',
         mushroomAliveSrc: mushroomAlive,
         mushroomAliveReverseSrc: mushroomAliveReverse,
-        mushroomBlinkingSrc: mushroomBlinking
+        mushroomBlinkingSrc: mushroomBlinking,
+
+        currInsult: 1
       };
     },
   
     methods: {
         startAnimation() {
-            this.mushroomState = 'animating';
-            setTimeout(() => {
-                this.mushroomState = 'blinking';
-            }, 500);
+            if(this.currInsult < 9){
+                setTimeout(() => {
+                   this.showInsult(this.currInsult);
+                }, 500);
+                this.currInsult++;
+                this.mushroomState = 'animating';
+                setTimeout(() => {
+                    this.mushroomState = 'blinking';
+                }, 500);
+
+                setTimeout(() => {
+                    this.goToReverse();
+                }, 1500);
+            }else{
+                const mushroom = this.$refs.mushroom;
+                if (mushroom) {
+                    if (mushroom && mushroom.classList.contains('mushroom_hover')) {
+                        mushroom.classList.remove('mushroom_hover');
+                    }
+                    mushroom.classList.remove('shake');
+                    void mushroom.offsetWidth;
+                    mushroom.classList.add('shake');
+                }
+            }
         },
   
         goToReverse() {
@@ -56,6 +88,16 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
             setTimeout(() => {
                 this.mushroomState = 'static';
             }, 500);
+        },
+
+        showInsult(number) {
+            const currentInsult = document.getElementById(`insult${number}`);
+            if (currentInsult) {
+                currentInsult.style.display = 'block';
+                setTimeout(() => {
+                   currentInsult.classList.add('hide');
+                }, 1000);
+            }
         },
 
         openScroll() {
@@ -137,7 +179,6 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
     transform: scale(1.02);
 }
 
-
 #scroll_opening{
     position: absolute;
     top: 203vw;
@@ -169,6 +210,24 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
     pointer-events: auto;
 }
 
+.insults{
+    position: absolute;
+    top: 103vw;
+    left: 38vw;
+    width: 22vw;
+    z-index: 100;
+    display: none;
+    animation: scaleFadeIn 0.3s ease-out forwards;
+}
+
+.hide{
+    animation: scaleFadeOut 0.3s ease-out forwards;
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+
 @keyframes glowPulse {
     0%, 100% {
         filter: drop-shadow(0 0 0.3vw rgba(255, 255, 255, 0.5));
@@ -176,6 +235,15 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
     50% {
         filter: drop-shadow(0 0 0.6vw rgba(255, 255, 255, 0.7));
     }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
 }
 
 @keyframes glowfloat {
@@ -206,6 +274,28 @@ import scrollOpening from '@/assets/videos/scroll_opening.gif';
 
     100% {
         transform: translateY(0);
+    }
+}
+
+@keyframes scaleFadeIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleFadeOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.5);
+        opacity: 0;
     }
 }
 

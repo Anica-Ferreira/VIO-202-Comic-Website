@@ -29,6 +29,9 @@
             <img src="@/assets/images/infographic/part2/brush_light.png" id="brush_light">
             <img src="@/assets/images/infographic/part2/brush1.png" id="brush2">
             <img src="@/assets/images/infographic/part2/light_swirls.png" id="swirls">
+            <img src="@/assets/videos/swirl1.gif" class="swirl">
+            <img src="@/assets/videos/creature.gif" id="black_thing">
+
             
         </div>
     </div>
@@ -60,6 +63,7 @@ export default {
     mounted() {
     const armyMaking = document.getElementById("army_making");
     const armyBlinking = document.getElementById("army_blinking");
+    const blackThing = document.getElementById("black_thing");
 
     let observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -79,8 +83,22 @@ export default {
          
         });
 
-  observer.observe(armyMaking);
-}
+    observer.observe(armyMaking);
+
+    let blackThingObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+        blackThing.classList.add("leave-animation");
+
+        blackThing.addEventListener("animationend", () => {
+          blackThing.style.display = "none";
+        }, { once: true });
+      }
+        });
+    }, { threshold: 0.3 });
+
+    blackThingObserver.observe(blackThing);
+    }
 };
 
 </script>
@@ -105,6 +123,7 @@ export default {
     top: 110vw;
     left: 0vw;
     width: 100vw;
+    z-index: 2;
 }
 
 #darkness{
@@ -114,7 +133,19 @@ export default {
     width: 100vw;
     mix-blend-mode:  multiply;
     opacity: 0.9;
-    
+}
+
+#black_thing{
+    position: absolute;
+    top: 215vw;
+    left: 65vw;
+    width: 25vw; 
+    z-index: 1;
+    opacity: 0.9; 
+}
+
+.leave-animation {
+    animation: leave 3s ease-in-out forwards;
 }
 
 #army_making{
@@ -147,6 +178,16 @@ export default {
     top: 120vw;
     left: 0vw;
     width: 100vw;
+    animation: swirlPulse 4s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.swirl{
+    position: absolute;
+    top: 150vw;
+    left: 30vw;
+    width: 50vw;
     animation: swirlPulse 4s ease-in-out infinite;
     pointer-events: none;
     mix-blend-mode: screen;
@@ -305,7 +346,31 @@ export default {
         opacity: 0.6;
     }
 }
+
+@keyframes floatb {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes leave {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(30vw);
+        opacity: 0;
+    }
+}
     
-
-
 </style>

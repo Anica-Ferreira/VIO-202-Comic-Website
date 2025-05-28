@@ -12,18 +12,17 @@
             <img src="@/assets/images/infographic/part4/text16.png" id="text16" class="text scroll_reveal">
             <img src="@/assets/images/infographic/part4/text17.png" id="text17" class="text scroll_reveal">
 
-            <img src="@/assets/images/infographic/part4/green_glow.png" id="green_glow">
+            <img src="@/assets/videos/green_glow.gif" id="green_glow">
             <img src="@/assets/images/infographic/part4/tree.png" id="tree">
 
             <img v-show="bush1Visible" src="@/assets/videos/bush_shaking_mushroom.gif" id="bush1" @click="bushReveal1">
             <img v-show="bush2Visible" src="@/assets/videos/bush_shaking_onion.gif" id="bush2" @click="bushReveal2">
 
-            <img v-show="mushroomVisible" src="@/assets/videos/mushroom_jump.gif" id="bush_mushroom" @click="bushReveal3">
+            <img v-show="mushroomVisible" src="@/assets/videos/mushroom_jump.gif" id="bush_mushroom">
             <img v-show="onionVisible" src="@/assets/videos/onion_jump.gif" class="onion">
-            <img v-show="onionBlinkVisible" src="@/assets/videos/onion_blinking.gif" class="onion" @click="bushReveal4">
+            <img v-show="onionBlinkVisible" src="@/assets/videos/onion_blinking.gif" class="onion">
 
-            <img src="@/assets/images/infographic/part4/threshhold.png" id="threshhold"/>
-            <img src="@/assets/images/infographic/part4/sparkles.png" id="sparkles">
+            <img src="@/assets/images/infographic/part4/threshhold.png" id="threshhold">
 
             <img src="@/assets/images/infographic/part4/green_circle.png" id="circle">
             <img  src="@/assets/images/infographic/part4/darkness.png" id="darkness">
