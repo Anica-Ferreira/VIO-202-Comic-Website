@@ -63,4 +63,37 @@ html {
     transform: translateY(0);
 }
 
+@keyframes hover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1vw);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hover {
+  animation: hover 2.8s ease-in-out infinite;
+}
+
+@keyframes floatRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(150vw);
+  }
+}
+
+@keyframes floatLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-120vw);
+  }
+}
 

@@ -9,6 +9,15 @@
 
             <img src="@/assets/images/comic/part1/1.png" class="one">
             <img src="@/assets/images/comic/part1/2.png" class="two">
+            <img src="@/assets/images/comic/part1/brush.png" class="paralx_brush">
+            
+            <img src="@/assets/images/comic/part1/poke_animation.gif" class="poke">
+            <img src="@/assets/images/comic/part1/rawr_animation.gif" class="rawr">
+            <img src="@/assets/images/comic/part1/fungarh_animation.gif" class="fugnarh">
+
+            <img src="@/assets/images/comic/part1/whisp1.png" class="hover w1">
+            <img src="@/assets/images/comic/part1/whisp2.png" class="hover w2">
+            <img src="@/assets/images/comic/part1/whisp3.png" class="hover w3">
             
 
         </div>
@@ -16,8 +25,6 @@
   </template>
   
 <script>
-
-
 </script>
 
 <style scoped>
@@ -49,6 +56,64 @@
         top: 120vw;
         left: 0vw;
         width: 100vw;
+        z-index: 100;
+    }
+
+    .poke{
+        position: absolute;
+        top: 206.5vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
+    
+    .paralx_brush{
+        position: absolute;
+        top: 349vw;
+        left: 35vw;
+        width: 100vw;
+        z-index: 200;
+        transition: left 0.1s linear;
+    }
+
+    .rawr{
+        position: absolute;
+        top: 407vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
+    .fugnarh{
+        position: absolute;
+        top: 570vw;
+        left: 6vw;
+        width: 85vw;
+        z-index: 100;
+    }
+
+    .w1{
+        position: absolute;
+        top: 515vw;
+        left: -2vw;
+        width: 45vw;
+        z-index: 100;
+    }
+
+    .w2{
+        position: absolute;
+        top: 875vw;
+        left: 0vw;
+        width: 35vw;
+        z-index: 100;
+    }
+
+    .w3{
+        position: absolute;
+        top: 1058vw;
+        left: 0vw;
+        width: 53vw;
         z-index: 100;
     }
 

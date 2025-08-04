@@ -42,3 +42,29 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll();
 });
+
+//horisontal paralax scrolling
+document.addEventListener("DOMContentLoaded", function () {
+    const brush = document.querySelector(".paralx_brush");
+
+    const updateBrushPosition = () => {
+        if (!brush) return;
+
+        const brushRect = brush.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (brushRect.bottom > 0 && brushRect.top < windowHeight) {
+            const visibleRatio = 1 - (brushRect.top / windowHeight); 
+            const clamped = Math.max(0, Math.min(visibleRatio, 1));
+
+            const startLeft = 35;
+            const endLeft = 0;
+            const newLeft = startLeft + (endLeft - startLeft) * clamped;
+
+            brush.style.left = `${newLeft}vw`;
+        }
+    };
+
+    window.addEventListener('scroll', updateBrushPosition);
+    updateBrushPosition();
+});
