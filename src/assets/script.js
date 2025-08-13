@@ -68,3 +68,53 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', updateBrushPosition);
     updateBrushPosition();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const brush = document.querySelector(".paralx_brush2");
+
+    const updateBrushPosition = () => {
+        if (!brush) return;
+
+        const brushRect = brush.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (brushRect.bottom > 0 && brushRect.top < windowHeight) {
+            const visibleRatio = 1 - (brushRect.top / windowHeight); 
+            const clamped = Math.max(0, Math.min(visibleRatio, 1));
+
+            const startLeft = 15;
+            const endLeft = -3;
+            const newLeft = startLeft + (endLeft - startLeft) * clamped;
+
+            brush.style.left = `${newLeft}vw`;
+        }
+    };
+
+    window.addEventListener('scroll', updateBrushPosition);
+    updateBrushPosition();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const brush = document.querySelector(".branch");
+
+    const updateBrushPosition = () => {
+        if (!brush) return;
+
+        const brushRect = brush.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (brushRect.bottom > 0 && brushRect.top < windowHeight) {
+            const visibleRatio = 1 - (brushRect.top / windowHeight); 
+            const clamped = Math.max(0, Math.min(visibleRatio, 1));
+
+            const startLeft = 30;
+            const endLeft = -3;
+            const newLeft = startLeft + (endLeft - startLeft) * clamped;
+
+            brush.style.left = `${newLeft}vw`;
+        }
+    };
+
+    window.addEventListener('scroll', updateBrushPosition);
+    updateBrushPosition();
+});

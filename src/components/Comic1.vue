@@ -3,22 +3,20 @@
     <div class="comic1">
         <div class="infographic_content">
             <img src="@/assets/images/comic/part1/background.png" class="cover-anchor">
-
             <img src="@/assets/images/comic/part1/blue_fade.png" class="blue_fade">
             <img src="@/assets/images/comic/part1/green_fade.png" class="green_fade">
-
             <img src="@/assets/images/comic/part1/1.png" class="one">
             <img src="@/assets/images/comic/part1/2.png" class="two">
             <img src="@/assets/images/comic/part1/brush.png" class="paralx_brush">
-            
             <img src="@/assets/images/comic/part1/poke_animation.gif" class="poke">
             <img src="@/assets/images/comic/part1/rawr_animation.gif" class="rawr">
             <img src="@/assets/images/comic/part1/fungarh_animation.gif" class="fugnarh">
 
+            <img src="@/assets/images/comic/part1/confused.gif" class="confused">
+
             <img src="@/assets/images/comic/part1/whisp1.png" class="hover w1">
             <img src="@/assets/images/comic/part1/whisp2.png" class="hover w2">
             <img src="@/assets/images/comic/part1/whisp3.png" class="hover w3">
-            
 
         </div>
     </div>
@@ -67,7 +65,14 @@
         z-index: 100;
     }
 
-    
+    .confused{
+        position: absolute;
+        top: 1065vw;
+        left: 12vw;
+        width: 61vw;
+        z-index: 100;
+    }
+
     .paralx_brush{
         position: absolute;
         top: 349vw;
