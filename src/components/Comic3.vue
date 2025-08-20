@@ -17,8 +17,10 @@
             <img src="@/assets/images/comic/part3/glow_eyes.gif" class="glow-eyes">
             <img src="@/assets/images/comic/part3/lost_control.gif" class="lost-control">
             <img src="@/assets/images/comic/part3/glow_eyes.gif" class="glow-eyes">
+            <img src="@/assets/images/comic/part3/glow_eyes2.gif" class="glow-eyes2">
             <img src="@/assets/images/comic/part3/ahah.gif" class="aha">
             <img src="@/assets/images/comic/part3/branch.png" class="branch">
+            <img src="@/assets/images/comic/part3/pant.gif" class="pant">
         </div>
     </div>
   </template>
@@ -98,9 +100,25 @@
         z-index: 100;
     }
 
+    .pant{
+        position: absolute;
+        top: 899vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
     .glow-eyes{
         position: absolute;
         top: 15.3vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
+    .glow-eyes2{
+        position: absolute;
+        top: 155.6vw;
         left: 0vw;
         width: 100vw;
         z-index: 100;

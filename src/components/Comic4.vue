@@ -4,7 +4,7 @@
         <div class="infographic_content">
             <img src="@/assets/images/comic/part4/background.png" class="cover-anchor">
 
-            <img src="@/assets/images/comic/part4/blue.png" class="blue1">
+            
 
             <img src="@/assets/images/comic/part4/7.png" class="seven">
             <img src="@/assets/images/comic/part4/8.png" class="eight">
@@ -15,7 +15,11 @@
             <img src="@/assets/images/comic/part4/crrr.gif" class="crr">
             <img src="@/assets/images/comic/part4/shock.gif" class="shock">
             <img src="@/assets/images/comic/part4/shwoop.gif" class="shwoop">
-
+            <img src="@/assets/images/comic/part4/ahhh.gif" class="ahhh">
+            <img src="@/assets/images/comic/part4/glow_eyes3.gif" class="glow_eyes3">
+            <img src="@/assets/images/comic/part4/glow_eyes4.gif" class="glow_eyes4">
+            <img src="@/assets/images/comic/part4/crack.gif" class="crack">
+            <img src="@/assets/images/comic/part4/please.gif" class="please">
             <img src="@/assets/images/comic/part4/bubble.png" class="bubble"></img>
             
 
@@ -45,7 +49,7 @@
 
     .eight{
         position: absolute;
-        top: 770vw;
+        top: 800vw;
         left: 0vw;
         width: 100vw;
         z-index: 11; 
@@ -104,6 +108,54 @@
         top: 660vw;
         left: 0vw;
         width: 100vw;
+        z-index: 100;
+    }
+
+    .glow_eyes3{
+        position: absolute;
+        top: 890vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
+    .glow_eyes4{
+        position: absolute;
+        top: 1258vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
+    .glow_eyes4{
+        position: absolute;
+        top: 1258vw;
+        left: 0vw;
+        width: 100vw;
+        z-index: 100;
+    }
+
+    .please{
+        position: absolute;
+        top: 1120vw;
+        left: 20vw;
+        width: 80vw;
+        z-index: 100
+    }
+
+    .crack{
+        position: absolute;
+        top: 1325vw;
+        left: 15vw;
+        width: 70vw;
+        z-index: 100;
+    }
+
+    .ahhh{
+        position: absolute;
+        top: 870vw;
+        left: 3vw;
+        width: 53vw;
         z-index: 100;
     }
 
