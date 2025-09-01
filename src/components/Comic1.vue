@@ -8,21 +8,138 @@
             <img src="@/assets/images/comic/part1/1.png" class="one">
             <img src="@/assets/images/comic/part1/2.png" class="two">
             <img src="@/assets/images/comic/part1/brush.png" class="paralx_brush">
-            <img src="@/assets/images/comic/part1/poke_animation.gif" class="poke">
-            <img src="@/assets/images/comic/part1/rawr_animation.gif" class="rawr">
-            <img src="@/assets/images/comic/part1/fungarh_animation.gif" class="fugnarh">
+            <img ref="pokeEl" src="@/assets/images/comic/part1/poke_animation.gif" class="poke">
 
-            <img src="@/assets/images/comic/part1/confused.gif" class="confused">
+            <img ref="rawrImg" src="@/assets/images/comic/part1/rawr_animation.gif" class="rawr">
+
+            <img ref="fungarhEl" src="@/assets/images/comic/part1/fungarh_animation.gif" class="fungarh">
+
+            <img ref="confusedEl" src="@/assets/images/comic/part1/confused.gif" class="confused">
 
             <img src="@/assets/images/comic/part1/whisp1.png" class="hover w1">
             <img src="@/assets/images/comic/part1/whisp2.png" class="hover w2">
             <img src="@/assets/images/comic/part1/whisp3.png" class="hover w3">
 
+            <img 
+                :src="store.soundOn ? soundOnImg : soundOffImg" 
+                class="sound"
+                :class="{ 'sound-on': store.soundOn, 'sound-off': !store.soundOn }"
+                @click="toggleSound"
+            >
         </div>
     </div>
   </template>
   
 <script>
+import soundOnImg from "@/assets/images/comic/part1/soundOn.png";
+import soundOffImg from "@/assets/images/comic/part1/soundOff.png";
+
+import { useSound } from "@vueuse/sound";
+import soundOnAudio from "@/assets/audio/on.mp3";
+import rawrAudio from "@/assets/audio/rawr.mp3";
+import pokeAudio from "@/assets/audio/poke.mp3";
+import fungarhAudio from "@/assets/audio/fungarh.mp3";
+import waitAudio from "@/assets/audio/wait.mp3";
+
+import { useSoundStore } from "@/stores/sound";
+
+export default {
+  setup() {
+    const store = useSoundStore();
+
+    const { play: playOn } = useSound(soundOnAudio);
+    const { play: playRawr } = useSound(rawrAudio);
+    const { play: playPoke } = useSound(pokeAudio);
+    const { play: playFungarh } = useSound(fungarhAudio);
+    const { play: playWait } = useSound(waitAudio); // new
+
+    function toggleSound() {
+      store.toggleSound();
+      if (store.soundOn) {
+        playOn();
+      }
+    }
+
+    return {
+      store,
+      playOn,
+      playRawr,
+      playPoke,
+      playFungarh,
+      playWait,
+      toggleSound,
+      soundOnImg,
+      soundOffImg,
+    };
+  },
+  mounted() {
+    // Rawr observer
+    if (this.$refs.rawrImg) {
+      this.rawrObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playRawr();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      this.rawrObserver.observe(this.$refs.rawrImg);
+    }
+
+    // Poke observer
+    if (this.$refs.pokeEl) {
+      this.pokeObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playPoke();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      this.pokeObserver.observe(this.$refs.pokeEl);
+    }
+
+    // Fungarh observer
+    if (this.$refs.fungarhEl) {
+      this.fungarhObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playFungarh();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      this.fungarhObserver.observe(this.$refs.fungarhEl);
+    }
+
+    // Confused observer
+    if (this.$refs.confusedEl) {
+      this.confusedObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playWait();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      this.confusedObserver.observe(this.$refs.confusedEl);
+    }
+  },
+  beforeUnmount() {
+    if (this.rawrObserver) this.rawrObserver.disconnect();
+    if (this.pokeObserver) this.pokeObserver.disconnect();
+    if (this.fungarhObserver) this.fungarhObserver.disconnect();
+    if (this.confusedObserver) this.confusedObserver.disconnect();
+  },
+};
 </script>
 
 <style scoped>
@@ -90,7 +207,7 @@
         z-index: 100;
     }
 
-    .fugnarh{
+    .fungarh{
         position: absolute;
         top: 570vw;
         left: 6vw;
@@ -128,6 +245,28 @@
         left: 0vw;
         width: 100vw;
         z-index: 100;
+    }
+
+    .sound {
+        position: absolute;
+        top: 40vw;
+        left: 35vw;
+        width: 30vw;
+        z-index: 100;
+        transition: opacity 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+    }
+
+    .sound-on {
+        opacity: 1;
+    }
+
+    .sound-off {
+        opacity: 0.6;
+    }
+
+    .sound:hover {
+        transform: scale(1.05);
     }
    
 </style>

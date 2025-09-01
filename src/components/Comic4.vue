@@ -12,14 +12,14 @@
             <img src="@/assets/images/comic/part4/whisp11.png" class="hover w11">
             <img src="@/assets/images/comic/part4/whisp12.gif" class="hover w12">
             <img src="@/assets/images/comic/part4/whisp13.png" class="hover w13">
-            <img src="@/assets/images/comic/part4/crrr.gif" class="crr">
+            <img ref="crrEl" src="@/assets/images/comic/part4/crrr.gif" class="crr">
             <img src="@/assets/images/comic/part4/shock.gif" class="shock">
             <img src="@/assets/images/comic/part4/shwoop.gif" class="shwoop">
-            <img src="@/assets/images/comic/part4/ahhh.gif" class="ahhh">
+            <img ref="ahhhEl" src="@/assets/images/comic/part4/ahhh.gif" class="ahhh">
             <img src="@/assets/images/comic/part4/glow_eyes3.gif" class="glow_eyes3">
             <img src="@/assets/images/comic/part4/glow_eyes4.gif" class="glow_eyes4">
-            <img src="@/assets/images/comic/part4/crack.gif" class="crack">
-            <img src="@/assets/images/comic/part4/please.gif" class="please">
+            <img ref="crackEl" src="@/assets/images/comic/part4/crack.gif" class="crack">
+            <img ref="glowEl" src="@/assets/images/comic/part4/please.gif" class="please">
             <img src="@/assets/images/comic/part4/bubble.png" class="bubble"></img>
             
 
@@ -28,8 +28,91 @@
   </template>
   
 <script>
+import { useSound } from "@vueuse/sound"
+import crackAudio from "@/assets/audio/crack.mp3"
+import ahhAudio from "@/assets/audio/ahh.mp3"
+import doomAudio from "@/assets/audio/doom.mp3"
+import crrkAudio from "@/assets/audio/crrk.mp3" // new sound
+import { useSoundStore } from "@/stores/sound"
 
+export default {
+  setup() {
+    const store = useSoundStore()
+    const { play: playCrack } = useSound(crackAudio)
+    const { play: playAhh } = useSound(ahhAudio)
+    const { play: playDoom } = useSound(doomAudio)
+    const { play: playCrrk } = useSound(crrkAudio) // new
 
+    return { store, playCrack, playAhh, playDoom, playCrrk }
+  },
+  mounted() {
+    // crack observer
+    if (this.$refs.crackEl) {
+      this.crackObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playCrack()
+            }
+          })
+        },
+        { threshold: 0.7 }
+      )
+      this.crackObserver.observe(this.$refs.crackEl)
+    }
+
+    // ahhh observer
+    if (this.$refs.ahhhEl) {
+      this.ahhhObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playAhh()
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      this.ahhhObserver.observe(this.$refs.ahhhEl)
+    }
+
+    // doom observer
+    if (this.$refs.glowEl) {
+      this.doomObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playDoom()
+            }
+          })
+        },
+        { threshold: 0.9 }
+      )
+      this.doomObserver.observe(this.$refs.glowEl)
+    }
+
+    // crrk observer (new)
+    if (this.$refs.crrEl) {
+      this.crrkObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playCrrk()
+            }
+          })
+        },
+        { threshold: 0.4 }
+      )
+      this.crrkObserver.observe(this.$refs.crrEl)
+    }
+  },
+  beforeUnmount() {
+    if (this.crackObserver) this.crackObserver.disconnect()
+    if (this.ahhhObserver) this.ahhhObserver.disconnect()
+    if (this.doomObserver) this.doomObserver.disconnect()
+    if (this.crrkObserver) this.crrkObserver.disconnect()
+  }
+}
 </script>
 
 <style scoped>

@@ -9,16 +9,16 @@
             <img src="@/assets/images/comic/part3/5.png" class="five">
             <img src="@/assets/images/comic/part3/6.png" class="six">
 
-            <img src="@/assets/images/comic/part3/whisp7.gif" class="w7">
+            <img ref="whisp7El" src="@/assets/images/comic/part3/whisp7.gif" class="w7">
             <img src="@/assets/images/comic/part3/whisp8.png" class="hover w8">
             <img src="@/assets/images/comic/part3/whisp9.png" class="hover w9">
             <img src="@/assets/images/comic/part3/whisp10.png" class="hover w10">
 
             <img src="@/assets/images/comic/part3/glow_eyes.gif" class="glow-eyes">
-            <img src="@/assets/images/comic/part3/lost_control.gif" class="lost-control">
+            <img ref="lostControlEl" src="@/assets/images/comic/part3/lost_control.gif" class="lost-control">
             <img src="@/assets/images/comic/part3/glow_eyes.gif" class="glow-eyes">
-            <img src="@/assets/images/comic/part3/glow_eyes2.gif" class="glow-eyes2">
-            <img src="@/assets/images/comic/part3/ahah.gif" class="aha">
+            <img ref="glowEyes2El" src="@/assets/images/comic/part3/glow_eyes2.gif" class="glow-eyes2">
+            <img ref="ahaEl" src="@/assets/images/comic/part3/ahah.gif" class="aha">
             <img src="@/assets/images/comic/part3/branch.png" class="branch">
             <img src="@/assets/images/comic/part3/pant.gif" class="pant">
         </div>
@@ -26,8 +26,91 @@
   </template>
   
 <script>
+import { useSound } from "@vueuse/sound"
+import ahahAudio from "@/assets/audio/ahah.mp3"
+import runAudio from "@/assets/audio/run.mp3"
+import regretAudio from "@/assets/audio/regret.mp3"
+import shakeAudio from "@/assets/audio/shake.mp3"
+import { useSoundStore } from "@/stores/sound"
 
+export default {
+  setup() {
+    const store = useSoundStore()
+    const { play: playAhah } = useSound(ahahAudio)
+    const { play: playRun } = useSound(runAudio)
+    const { play: playRegret } = useSound(regretAudio)
+    const { play: playShake } = useSound(shakeAudio)
 
+    return { store, playAhah, playRun, playRegret, playShake }
+  },
+  mounted() {
+    // Ahah observer
+    if (this.$refs.ahaEl) {
+      this.ahaObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playAhah()
+            }
+          })
+        },
+        { threshold: 0.1 }
+      )
+      this.ahaObserver.observe(this.$refs.ahaEl)
+    }
+
+    // Whisp7 run observer
+    if (this.$refs.whisp7El) {
+      this.runObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playRun()
+            }
+          })
+        },
+        { threshold: 0.1 }
+      )
+      this.runObserver.observe(this.$refs.whisp7El)
+    }
+
+    // Glow-eyes2 regret observer
+    if (this.$refs.glowEyes2El) {
+      this.regretObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playRegret()
+            }
+          })
+        },
+        { threshold: 0.3 }
+      )
+      this.regretObserver.observe(this.$refs.glowEyes2El)
+    }
+
+    // Lost-control shake observer
+    if (this.$refs.lostControlEl) {
+      this.shakeObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playShake()
+            }
+          })
+        },
+        { threshold: 0.2 }
+      )
+      this.shakeObserver.observe(this.$refs.lostControlEl)
+    }
+  },
+  beforeUnmount() {
+    if (this.ahaObserver) this.ahaObserver.disconnect()
+    if (this.runObserver) this.runObserver.disconnect()
+    if (this.regretObserver) this.regretObserver.disconnect()
+    if (this.shakeObserver) this.shakeObserver.disconnect()
+  }
+}
 </script>
 
 <style scoped>

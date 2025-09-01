@@ -7,19 +7,82 @@
             <img src="@/assets/images/comic/part5/9.png" class="nine">
             <img src="@/assets/images/comic/part5/10.png" class="ten">
             <img src="@/assets/images/comic/part5/11.png" class="eleven">
-            <img src="@/assets/images/comic/part5/waa.gif" class="waa">
-            <img src="@/assets/images/comic/part5/whisp15.gif" class="w15">
+            <img ref="waaEl" src="@/assets/images/comic/part5/waa.gif" class="waa">
+            <img ref="whisp15El" src="@/assets/images/comic/part5/whisp15.gif" class="w15">
             <img src="@/assets/images/comic/part5/whisp14.png" class="w14 hover">
-            <img src="@/assets/images/comic/part5/thud.png" class="thud1">
+            <img ref="thudEl" src="@/assets/images/comic/part5/thud.png" class="thud1">
             <img src="@/assets/images/comic/part5/whisp16.png" class="hover w16">
         </div>
     </div>
   </template>
   
 <script>
+import { useSound } from "@vueuse/sound"
+import thudAudio from "@/assets/audio/thud.mp3"
+import waaAudio from "@/assets/audio/waa.mp3"
+import twinkleAudio from "@/assets/audio/twinkle.mp3"
+import { useSoundStore } from "@/stores/sound"
 
+export default {
+  setup() {
+    const store = useSoundStore()
+    const { play: playThud } = useSound(thudAudio)
+    const { play: playWaa } = useSound(waaAudio)
+    const { play: playTwinkle } = useSound(twinkleAudio)
 
+    return { store, playThud, playWaa, playTwinkle }
+  },
+  mounted() {
+    if (this.$refs.thudEl) {
+      this.thudObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playThud()
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      this.thudObserver.observe(this.$refs.thudEl)
+    }
+
+    if (this.$refs.waaEl) {
+      this.waaObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playWaa()
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      this.waaObserver.observe(this.$refs.waaEl)
+    }
+
+    if (this.$refs.whisp15El) {
+      this.twinkleObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playTwinkle()
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      this.twinkleObserver.observe(this.$refs.whisp15El)
+    }
+  },
+  beforeUnmount() {
+    if (this.thudObserver) this.thudObserver.disconnect()
+    if (this.waaObserver) this.waaObserver.disconnect()
+    if (this.twinkleObserver) this.twinkleObserver.disconnect()
+  }
+}
 </script>
+
 
 <style scoped>
 

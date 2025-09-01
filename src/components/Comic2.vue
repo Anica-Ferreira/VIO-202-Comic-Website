@@ -9,21 +9,75 @@
             <img src="@/assets/images/comic/part2/cloud1.png" class="cloud1">
             <img src="@/assets/images/comic/part2/cloud2.png" class="cloud2">
             <img src="@/assets/images/comic/part2/cloud3.png" class="cloud3">
-            <img src="@/assets/images/comic/part2/evil_animation.gif" class="evil">
+            <img ref="evilEl" src="@/assets/images/comic/part2/evil_animation.gif" class="evil">
             <img src="@/assets/images/comic/part2/whisp4.png" class="hover w4">
             <img src="@/assets/images/comic/part2/whisp5.png" class="hover w5">
             <img src="@/assets/images/comic/part2/whisp6.png" class="hover w6">
             <img src="@/assets/images/comic/part2/open_eyes.gif" class="open-eyes">
             <img src="@/assets/images/comic/part2/brush.png" class="paralx_brush2">
-             <img src="@/assets/images/comic/part2/thud.png" class="thud">
-            <img src="@/assets/images/comic/part2/fshhhk.gif" class="fshhk"></img>
+            <img src="@/assets/images/comic/part2/thud.png" class="thud">
+            <img ref="fshhkEl" src="@/assets/images/comic/part2/fshhhk.gif" class="fshhk">
         </div>
     </div>
   </template>
   
 <script>
+import { useSound } from "@vueuse/sound"
+import hahaAudio from "@/assets/audio/haha.mp3"
+import fsskAudio from "@/assets/audio/fssk.mp3"
+import { useSoundStore } from "@/stores/sound"
 
+export default {
+  setup() {
+    const store = useSoundStore()
 
+    const { play: playHaha } = useSound(hahaAudio)
+    const { play: playFssk } = useSound(fsskAudio)
+
+    return {
+      store,
+      playHaha,
+      playFssk, // expose
+    }
+  },
+  mounted() {
+    // Evil (haha)
+    const evilEl = this.$refs.evilEl
+    if (evilEl) {
+      this.hahaObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playHaha()
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      this.hahaObserver.observe(evilEl)
+    }
+
+    // Fshhk (fssk sound)
+    const fshhkEl = this.$refs.fshhkEl
+    if (fshhkEl) {
+      this.fshhkObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playFssk()
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      this.fshhkObserver.observe(fshhkEl)
+    }
+  },
+  beforeUnmount() {
+    if (this.hahaObserver) this.hahaObserver.disconnect()
+    if (this.fshhkObserver) this.fshhkObserver.disconnect()
+  },
+}
 </script>
 
 <style scoped>
