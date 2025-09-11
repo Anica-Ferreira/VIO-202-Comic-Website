@@ -3,19 +3,19 @@
     <div class="comic2">
         <div class="infographic_content">
             <img src="@/assets/images/comic/part2/background.png" class="cover-anchor">
-            <img src="@/assets/images/comic/part2/3.png" class="three">
-            <img src="@/assets/images/comic/part2/4.png" class="four">
-            <img src="@/assets/images/comic/part2/sky.png" class="sky">
-            <img src="@/assets/images/comic/part2/cloud1.png" class="cloud1">
-            <img src="@/assets/images/comic/part2/cloud2.png" class="cloud2">
-            <img src="@/assets/images/comic/part2/cloud3.png" class="cloud3">
+            <img src="@/assets/images/comic/part2/3.webp" class="three">
+            <img src="@/assets/images/comic/part2/4.webp" class="four">
+            <img src="@/assets/images/comic/part2/sky.webp" class="sky">
+            <img src="@/assets/images/comic/part2/cloud1.webp" class="cloud1">
+            <img src="@/assets/images/comic/part2/cloud2.webp" class="cloud2">
+            <img src="@/assets/images/comic/part2/cloud3.webp" class="cloud3">
             <img ref="evilEl" src="@/assets/images/comic/part2/evil_animation.gif" class="evil">
-            <img src="@/assets/images/comic/part2/whisp4.png" class="hover w4">
-            <img src="@/assets/images/comic/part2/whisp5.png" class="hover w5">
-            <img src="@/assets/images/comic/part2/whisp6.png" class="hover w6">
+            <img src="@/assets/images/comic/part2/whisp4.webp" class="hover w4">
+            <img src="@/assets/images/comic/part2/whisp5.webp" class="hover w5">
+            <img src="@/assets/images/comic/part2/whisp6.webp" class="hover w6">
             <img src="@/assets/images/comic/part2/open_eyes.gif" class="open-eyes">
-            <img src="@/assets/images/comic/part2/brush.png" class="paralx_brush2">
-            <img src="@/assets/images/comic/part2/thud.png" class="thud">
+            <img src="@/assets/images/comic/part2/brush.webp" class="paralx_brush2">
+            <img src="@/assets/images/comic/part2/thud.webp" class="thud">
             <img ref="fshhkEl" src="@/assets/images/comic/part2/fshhhk.gif" class="fshhk">
         </div>
     </div>

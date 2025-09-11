@@ -4,23 +4,23 @@
         <div class="infographic_content">
             <img src="@/assets/images/comic/part3/background.png" class="cover-anchor">
 
-            <img src="@/assets/images/comic/part3/blue_fade.png" class="blue">
+            <img src="@/assets/images/comic/part3/blue_fade.webp" class="blue">
 
-            <img src="@/assets/images/comic/part3/5.png" class="five">
-            <img src="@/assets/images/comic/part3/6.png" class="six">
+            <img src="@/assets/images/comic/part3/5.webp" class="five">
+            <img src="@/assets/images/comic/part3/6.webp" class="six">
 
             <img ref="whisp7El" src="@/assets/images/comic/part3/whisp7.gif" class="w7">
-            <img src="@/assets/images/comic/part3/whisp8.png" class="hover w8">
-            <img src="@/assets/images/comic/part3/whisp9.png" class="hover w9">
-            <img src="@/assets/images/comic/part3/whisp10.png" class="hover w10">
+            <img src="@/assets/images/comic/part3/whisp8.webp" class="hover w8">
+            <img src="@/assets/images/comic/part3/whisp9.webp" class="hover w9">
+            <img src="@/assets/images/comic/part3/whisp10.webp" class="hover w10">
 
             <img src="@/assets/images/comic/part3/glow_eyes.gif" class="glow-eyes">
             <img ref="lostControlEl" src="@/assets/images/comic/part3/lost_control.gif" class="lost-control">
             <img src="@/assets/images/comic/part3/glow_eyes.gif" class="glow-eyes">
             <img ref="glowEyes2El" src="@/assets/images/comic/part3/glow_eyes2.gif" class="glow-eyes2">
             <img ref="ahaEl" src="@/assets/images/comic/part3/ahah.gif" class="aha">
-            <img src="@/assets/images/comic/part3/branch.png" class="branch">
-            <img src="@/assets/images/comic/part3/pant.gif" class="pant">
+            <img src="@/assets/images/comic/part3/branch.webp" class="branch">
+            <img ref="pantEl" src="@/assets/images/comic/part3/pant.gif" class="pant">
         </div>
     </div>
   </template>
@@ -31,6 +31,7 @@ import ahahAudio from "@/assets/audio/ahah.mp3"
 import runAudio from "@/assets/audio/run.mp3"
 import regretAudio from "@/assets/audio/regret.mp3"
 import shakeAudio from "@/assets/audio/shake.mp3"
+import pantAudio from "@/assets/audio/pant.mp3"
 import { useSoundStore } from "@/stores/sound"
 
 export default {
@@ -40,8 +41,9 @@ export default {
     const { play: playRun } = useSound(runAudio)
     const { play: playRegret } = useSound(regretAudio)
     const { play: playShake } = useSound(shakeAudio)
+    const { play: playPant } = useSound(pantAudio)
 
-    return { store, playAhah, playRun, playRegret, playShake }
+    return { store, playAhah, playRun, playRegret, playShake, playPant }
   },
   mounted() {
     // Ahah observer
@@ -103,134 +105,32 @@ export default {
       )
       this.shakeObserver.observe(this.$refs.lostControlEl)
     }
+
+    // Pant observer <-- new
+    if (this.$refs.pantEl) {
+      this.pantObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && this.store.soundOn) {
+              this.playPant()
+            }
+          })
+        },
+        { threshold: 0.1 }
+      )
+      this.pantObserver.observe(this.$refs.pantEl)
+    }
   },
   beforeUnmount() {
     if (this.ahaObserver) this.ahaObserver.disconnect()
     if (this.runObserver) this.runObserver.disconnect()
     if (this.regretObserver) this.regretObserver.disconnect()
     if (this.shakeObserver) this.shakeObserver.disconnect()
+    if (this.pantObserver) this.pantObserver.disconnect()
   }
 }
 </script>
 
 <style scoped>
-    .comic3 {
-        position: relative;
-        width: 100%;
-        height: auto;
-    }
-
-    .five{
-        position: absolute;
-        top: -50vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    .six{
-        position: absolute;
-        top: 460vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    .blue{
-        position: absolute;
-        top: 0vw;
-        left: 0vw;
-        width: 100vw;    
-    }
-
-    .aha{
-        position: absolute;
-        top: 20vw;
-        left: 35vw;
-        width: 46vw;
-        z-index: 100;
-    }
-
-    .w7{
-        position: absolute;
-        top: 330.5vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    .w8{
-        position: absolute;
-        top: 465vw;
-        left: -5vw;
-        width: 50vw;
-        z-index: 100;
-    }
-
-    .w9{
-        position: absolute;
-        top: 690vw;
-        left: -1vw;
-        width: 40vw;
-        z-index: 100;
-    }
-
-    .w10{
-        position: absolute;
-        top: 893vw;
-        left: 35vw;
-        width: 45vw;
-        z-index: 100;
-    }
-
-    .pant{
-        position: absolute;
-        top: 899vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    .glow-eyes{
-        position: absolute;
-        top: 15.3vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    .glow-eyes2{
-        position: absolute;
-        top: 155.6vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    .branch{
-        position: absolute;
-        top: 423vw;
-        width: 100vw;
-        z-index: 100;
-        transition: left 0.1s linear;
-    }
-
-    .branch2{
-        position: absolute;
-        top: 423vw;
-        width: 100vw;
-        z-index: 100;
-        transition: left 0.1s linear;
-    }
-
-    .lost-control{
-        position: absolute;
-        top: 244vw;
-        left: 0vw;
-        width: 100vw;
-        z-index: 100;
-    }
-
-    
-   
+.aha,.five,.six,.w7,.w8,.w9{z-index:100}.comic3{position:relative;width:100%;height:auto}.blue,.five,.six{left:0;width:100vw;position:absolute}.five{top:-50vw}.six{top:460vw}.blue{top:0}.aha{position:absolute;top:20vw;left:35vw;width:46vw}.w7{position:absolute;top:330.5vw;left:0;width:100vw}.w8{position:absolute;top:465vw;left:-5vw;width:50vw}.w9{position:absolute;top:690vw;left:-1vw;width:40vw}.w10{position:absolute;top:893vw;left:35vw;width:45vw;z-index:100}.branch,.branch2,.glow-eyes,.glow-eyes2,.lost-control,.pant{position:absolute;width:100vw;z-index:100}.pant{top:899vw;left:0}.glow-eyes{top:15.3vw;left:0}.glow-eyes2{top:155.6vw;left:0}.branch,.branch2{top:423vw;transition:left .1s linear}.lost-control{top:244vw;left:0}
 </style>
